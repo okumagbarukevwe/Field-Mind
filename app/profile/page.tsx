@@ -133,10 +133,10 @@ export default function Profile() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="max-w-5xl mx-auto px-4 py-6">
 
         {/* Profile header */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-6 flex items-center gap-5">
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-6 flex flex-col md:flex-row items-start md:items-center gap-4">
           <div className="w-16 h-16 bg-green-950 border border-green-800 rounded-2xl flex items-center justify-center text-green-400 font-bold text-2xl shrink-0">
             {(fullName || currentEmail)?.charAt(0).toUpperCase()}
           </div>
@@ -159,7 +159,7 @@ export default function Profile() {
               )}
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4 text-center shrink-0">
+          <div className="grid grid-cols-3 gap-3 text-center w-full md:w-auto shrink-0">
             <div>
               <p className="text-2xl font-bold text-white">{incidents.length}</p>
               <p className="text-xs text-gray-500">Incidents</p>
@@ -176,11 +176,10 @@ export default function Profile() {
         </div>
 
         {/* Tabs + Content */}
-        <div className="flex gap-6">
-
+        <div className="flex flex-col md:flex-row gap-4">
           {/* Sidebar tabs */}
-          <div className="w-48 shrink-0">
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-2 space-y-1">
+          <div className="w-full md:w-48 shrink-0">
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-2 flex md:flex-col gap-1 overflow-x-auto">
               {tabs.map(tab => (
                 <button
                   key={tab.key}

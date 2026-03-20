@@ -1,7 +1,7 @@
 'use client';
 import { Geist } from 'next/font/google';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from './utils/supabase';
 import './globals.css';
@@ -109,12 +109,22 @@ function MobileMenu({ role, pathname, email, onLogout }: {
 function HQDropdown({ links }: { links: { href: string; label: string }[] }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        onBlur={() => setTimeout(() => setOpen(false), 150)}
         className="text-green-400 hover:text-green-300 text-sm font-semibold transition px-3 py-2 rounded-xl hover:bg-gray-800 flex items-center gap-1"
       >
         HQ Manager {open ? '▴' : '▾'}
