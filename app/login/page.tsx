@@ -22,7 +22,13 @@ export default function Login() {
     setMessage('');
 
     if (isSignUp) {
-        const { error } = await supabase.auth.signUp({ email, password });
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/verified`,
+          },
+        });
         if (error) {
           setError(error.message);
         } else {
